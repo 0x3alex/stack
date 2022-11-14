@@ -67,9 +67,9 @@
     } \
 \
     void destroy_stack_##suffix(stack_##suffix *top) { \
-        stack_##suffix *c = top; \
+        stack_##suffix *c = top, *t = NULL; \
         while(c != NULL) { \
-            stack_##suffix *t = c->ptr_next; \
+            t = c->ptr_next; \
             free(c); \
             c = t; \
         } \
