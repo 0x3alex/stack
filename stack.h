@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdarg.h>
+#include <assert.h>
 
 
 #define define_stack(suffix,type) \
@@ -21,6 +22,7 @@
         if(amount_of_values >= 1) { \
             for(int i = 0; i < amount_of_values; i++) { \
                 n = (stack_##suffix*)calloc(1,sizeof(stack_##suffix)); \
+                assert(n != NULL); \
                 n->m_value = va_arg(argp,type); \
                 n->ptr_next = t; \
                 t = n; \
@@ -36,6 +38,7 @@
 \
     void push_stack_##suffix(stack_##suffix **top, type val) { \
         stack_##suffix *n = (stack_##suffix*)calloc(1,sizeof(stack_##suffix)); \
+        assert(n != NULL); \
         n->m_value = val; \
         n->ptr_next = NULL; \
         if(is_empty_stack_##suffix(*top)) { \
