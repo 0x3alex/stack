@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 
 #define define_stack(suffix,type) \
@@ -12,10 +13,20 @@
         struct s_stack_##suffix *ptr_next; \
     } stack_##suffix; \
 \
-    stack_##suffix *new_stack_##suffix(type val) { \
-        stack_##suffix *n = (stack_##suffix*)calloc(1,sizeof(stack_##suffix)); \
-        n->m_value = val; \
-        n->ptr_next = NULL; \
+    stack_##suffix *new_stack_##suffix(int amount_of_values,...) { \
+        if(amount_of_values < 1) return NULL;  \
+        stack_##suffix *n = NULL, *t = NULL;\
+        va_list argp; \
+        va_start(argp,amount_of_values); \
+        if(amount_of_values >= 1) { \
+            for(int i = 0; i < amount_of_values; i++) { \
+                n = (stack_##suffix*)calloc(1,sizeof(stack_##suffix)); \
+                n->m_value = va_arg(argp,type); \
+                n->ptr_next = t; \
+                t = n; \
+            } \
+        }  \
+        va_end(argp); \
         return n; \
     } \
 \
