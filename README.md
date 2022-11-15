@@ -1,7 +1,7 @@
 # stack
  generic stack implementation in c
 
-The pointer, which is set when calling
+The pointer, which is set, when calling
 ```c
 new_stack_...
 ```
