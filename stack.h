@@ -14,7 +14,7 @@
         struct s_stack_##suffix *ptr_next; \
     } stack_##suffix; \
 \
-    stack_##suffix *new_stack_##suffix(int amount_of_values,...) { \
+    stack_##suffix *new_stack_##suffix(const unsigned int amount_of_values,...) { \
         if(amount_of_values < 1) return NULL;  \
         stack_##suffix *n = NULL, *t = NULL;\
         va_list argp; \
