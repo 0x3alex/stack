@@ -7,14 +7,14 @@
 
 #define define_stack(suffix,type) \
 \
-    bool print_with_ptr_stack_##suffix = false; \
+    static bool print_with_ptr_stack_##suffix = false; \
 \
     typedef struct s_stack_##suffix { \
         type m_value; \
         struct s_stack_##suffix *ptr_next; \
     } stack_##suffix; \
 \
-    stack_##suffix *new_stack_##suffix(const unsigned int amount_of_values,...) { \
+    static stack_##suffix *new_stack_##suffix(const unsigned int amount_of_values,...) { \
         if(amount_of_values < 1) return NULL;  \
         stack_##suffix *n = NULL, *t = NULL;\
         va_list argp; \
@@ -32,11 +32,11 @@
         return n; \
     } \
 \
-    bool is_empty_stack_##suffix(stack_##suffix *top) { \
+    static bool is_empty_stack_##suffix(stack_##suffix *top) { \
         return top == NULL; \
     } \
 \
-    void push_stack_##suffix(stack_##suffix **top, type val) { \
+    static void push_stack_##suffix(stack_##suffix **top, type val) { \
         stack_##suffix *n = (stack_##suffix*)calloc(1,sizeof(stack_##suffix)); \
         assert(n != NULL); \
         n->m_value = val; \
@@ -49,13 +49,13 @@
         *top = n; \
     } \
 \
-    void pop_stack_##suffix(stack_##suffix **top) { \
+    static void pop_stack_##suffix(stack_##suffix **top) { \
         stack_##suffix *t = (*top)->ptr_next; \
         free(*top); \
         *top = t; \
     } \
 \
-    void print_stack_##suffix(stack_##suffix *top,char *formatter) { \
+    static void print_stack_##suffix(stack_##suffix *top,char *formatter) { \
         stack_##suffix *c = top; \
         while(c != NULL) { \
             printf(formatter,c->m_value); \
@@ -66,7 +66,7 @@
         } \
     } \
 \
-    void destroy_stack_##suffix(stack_##suffix *top) { \
+    static void destroy_stack_##suffix(stack_##suffix *top) { \
         stack_##suffix *c = top, *t = NULL; \
         while(c != NULL) { \
             t = c->ptr_next; \
